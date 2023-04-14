@@ -17,6 +17,9 @@ def main() -> None:
     with open(input_file, "r", encoding="utf-8") as file:
         tiktok_links = file.readlines()
 
+    # Calculate the width for zfill
+    zfill_width = len(str(len(tiktok_links)))
+
     for i, link in enumerate(tiktok_links, 1):
         link = link.strip()
         video_id = link.split("/")[-2]
@@ -26,7 +29,7 @@ def main() -> None:
 
         if download_url:
             output_filename = os.path.join(
-                output_folder, f"{str(i).zfill(3)}_{video_id}.mp4"
+                output_folder, f"{str(i).zfill(zfill_width)}_{video_id}.mp4"
             )
             download_video(download_url, output_filename)
         else:
