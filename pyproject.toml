@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tiktok_downloader"
+name = "ttdown"
 version = "0.1.0"
 description = "A simple TikTok video downloader"
 authors = ["Psyhackological <konradkon@duck.com>"]
@@ -24,4 +24,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-tiktok-downloader = "tiktok_downloader.main:main"
+ttdown = "tiktok_downloader.main:main"
