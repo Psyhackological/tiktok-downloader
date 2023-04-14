@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "tiktok-downloader"
+name = "tiktok_downloader"
 version = "0.1.0"
 description = "A simple TikTok video downloader"
 authors = ["Psyhackological <konradkon@duck.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "tiktok_downloader"}]
+packages = [{include = "tiktok_downloader", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -22,3 +22,6 @@ mypy = "^1.2.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tiktok-downloader = "tiktok_downloader.main:main"

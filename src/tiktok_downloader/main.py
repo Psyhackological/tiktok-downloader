@@ -3,8 +3,12 @@ TikTok Video Downloader
 """
 
 import os
-from lib.downloader import get_proxy_url, get_download_url, download_video
-from lib.argument_parsing import parse_arguments
+from tiktok_downloader.lib.downloader import (
+    get_proxy_url,
+    get_download_url,
+    download_video,
+)
+from tiktok_downloader.lib.argument_parsing import parse_arguments
 
 
 def main() -> None:
