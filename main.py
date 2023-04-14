@@ -3,42 +3,13 @@ TikTok Video Downloader
 """
 
 import os
-from typing import Optional
-import requests
-from bs4 import BeautifulSoup
-from bs4.element import Tag
-
-
-def get_proxy_url(video_id: str) -> str:
-    """Return the proxy URL for the given video ID."""
-    return f"https://proxitok.pussthecat.org/@olga.gabrys/video/{video_id}"
-
-
-def get_download_url(proxy_url: str) -> Optional[str]:
-    """Return the download URL for the given proxy URL."""
-    response = requests.get(proxy_url, timeout=10)
-    soup = BeautifulSoup(response.content, "html.parser")
-    download_button = soup.find("a", class_="button is-success", string="No watermark")
-
-    if download_button and isinstance(download_button, Tag):
-        return f'https://proxitok.pussthecat.org{download_button["href"]}'
-    return None
-
-
-def download_video(download_url: str, output_filename: str) -> None:
-    """Download the video and save it to the output filename."""
-    video_response = requests.get(download_url, timeout=10)
-
-    with open(output_filename, "wb") as video_file:
-        video_file.write(video_response.content)
-
-    print(f"{output_filename} was downloaded successfully.")
+from lib.downloader import get_proxy_url, get_download_url, download_video
+from lib.argument_parsing import parse_arguments
 
 
 def main() -> None:
     """Main function to run the TikTok video downloader."""
-    input_file = "tiktok_links.txt"
-    output_folder = "TikToks"
+    input_file, output_folder, proxy_base_url = parse_arguments()
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -50,7 +21,7 @@ def main() -> None:
         link = link.strip()
         video_id = link.split("/")[-2]
 
-        proxy_url = get_proxy_url(video_id)
+        proxy_url = get_proxy_url(video_id, proxy_base_url)
         download_url = get_download_url(proxy_url)
 
         if download_url:
